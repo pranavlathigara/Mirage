@@ -15,19 +15,13 @@
  */
 package com.jorgecastilloprz.mirage.di.component;
 
-import com.github.jorgecastilloprz.mirage.api.foursquare.FoursquareRetrofitService;
-import com.github.jorgecastilloprz.mirage.mapper.PlaceMapper;
-import com.jorgecastilloprz.mirage.MainPresenter;
-import com.jorgecastilloprz.mirage.NearPlacesListPresenter;
-import com.jorgecastilloprz.mirage.datasources.PlacesNetworkDataSource;
+import com.github.jorgecastilloprz.mirage.di.ApiModule;
+import com.github.jorgecastilloprz.mirage.di.DataSourceModule;
 import com.jorgecastilloprz.mirage.di.RepositoryModule;
 import com.jorgecastilloprz.mirage.di.annotations.PerActivity;
 import com.jorgecastilloprz.mirage.di.modules.ActivityModule;
-import com.github.jorgecastilloprz.mirage.di.ApiModule;
 import com.jorgecastilloprz.mirage.di.modules.InteractorModule;
 import com.jorgecastilloprz.mirage.di.modules.PresentationModule;
-import com.jorgecastilloprz.mirage.interactor.GetPlacesAround;
-import com.jorgecastilloprz.mirage.repository.PlacesRepository;
 import com.jorgecastilloprz.mirage.ui.activity.MainActivity;
 import com.jorgecastilloprz.mirage.ui.fragment.MockFragment;
 import com.jorgecastilloprz.mirage.ui.fragment.NearPlacesListFragment;
@@ -38,7 +32,7 @@ import dagger.Component;
  */
 @PerActivity @Component(dependencies = ApplicationComponent.class, modules = {
     ActivityModule.class, PresentationModule.class, InteractorModule.class, RepositoryModule.class,
-    ApiModule.class
+    DataSourceModule.class, ApiModule.class
 }) public interface MainActivityComponent extends AbstractActivityComponent {
 
   void inject(MainActivity mainActivity);
@@ -46,18 +40,4 @@ import dagger.Component;
   void inject(NearPlacesListFragment nearPlacesListFragment);
 
   void inject(MockFragment mockFragment);
-
-  MainPresenter mainPresenter();
-
-  NearPlacesListPresenter nearPlacesListPresenter();
-
-  GetPlacesAround getPlacesAround();
-
-  PlacesRepository placesRepository();
-
-  PlacesNetworkDataSource placesNetworkDataSource();
-
-  FoursquareRetrofitService foursquareRetrofitService();
-
-  PlaceMapper placeMapper();
 }

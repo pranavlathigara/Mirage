@@ -13,15 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.jorgecastilloprz.mirage.mapper;
+package com.github.jorgecastilloprz.mirage.api.foursquare.mapper;
 
+import com.github.jorgecastilloprz.mirage.api.foursquare.model.VenueItem;
+import com.github.jorgecastilloprz.mirage.mapper.Mapper;
+import com.jorgecastilloprz.mirage.datasources.exceptions.MappingException;
+import com.jorgecastilloprz.mirage.datasources.exceptions.NetworkMapperException;
 import com.jorgecastilloprz.mirage.model.Place;
 import java.util.List;
 
 /**
+ * Restricts generic types to just allow a mapping from a rest {@link VenueItem} to a domain
+ * {@link Place}.
+ *
  * @author Jorge Castillo Pérez
  */
-public interface PlaceMapper<From> {
+public interface FoursquarePlaceMapper extends Mapper<VenueItem, Place> {
 
-  List<Place> map(From source);
+  @Override List<Place> map(List<VenueItem> venueItems) throws NetworkMapperException;
+
+  @Override Place map(VenueItem venueItem) throws NetworkMapperException;
 }

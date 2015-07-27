@@ -18,5 +18,5 @@ package com.jorgecastilloprz.mirage.datasources.exceptions;
 /**
  * @author Jorge Castillo Pérez
  */
-public class NetworkMapperException extends Exception {
+public class NetworkMapperException extends MappingException {
 }

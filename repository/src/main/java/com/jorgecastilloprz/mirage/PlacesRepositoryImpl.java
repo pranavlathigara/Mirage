@@ -39,9 +39,7 @@ public class PlacesRepositoryImpl implements PlacesRepository {
       int radius) throws ObtainPlacesException {
     try {
       return dataSource.obtainPlacesAround(pageToLoad, lat, lng, limit, radius);
-    } catch (ObtainPlacesNetworkException e) {
-      throw new ObtainPlacesException();
-    } catch (NetworkMapperException e) {
+    } catch (ObtainPlacesNetworkException | NetworkMapperException e) {
       throw new ObtainPlacesException();
     }
   }

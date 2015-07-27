@@ -15,20 +15,26 @@
  */
 package com.github.jorgecastilloprz.mirage.di;
 
-import com.github.jorgecastilloprz.mirage.api.foursquare.FoursquareRetrofitService;
+import com.github.jorgecastilloprz.mirage.api.foursquare.PlacesNetworkDataSourceImpl;
+import com.github.jorgecastilloprz.mirage.api.foursquare.mapper.FoursquarePlaceMapper;
+import com.github.jorgecastilloprz.mirage.api.foursquare.mapper.FoursquarePlaceMapperImpl;
+import com.jorgecastilloprz.mirage.datasources.PlacesNetworkDataSource;
 import com.jorgecastilloprz.mirage.di.annotations.PerActivity;
 import dagger.Module;
 import dagger.Provides;
-import retrofit.RestAdapter;
 
 /**
  * @author Jorge Castillo Pérez
  */
-@Module public class ApiModule {
+@Module public class DataSourceModule {
 
-  @Provides @PerActivity FoursquareRetrofitService provideApiService() {
-    return new RestAdapter.Builder().setEndpoint("https://api.foursquare.com/v2")
-        .build()
-        .create(FoursquareRetrofitService.class);
+  @Provides @PerActivity PlacesNetworkDataSource provideNetworkDatasource(
+      PlacesNetworkDataSourceImpl dataSource) {
+    return dataSource;
+  }
+
+  @Provides @PerActivity FoursquarePlaceMapper providePlaceMapper(
+      FoursquarePlaceMapperImpl mapper) {
+    return mapper;
   }
 }

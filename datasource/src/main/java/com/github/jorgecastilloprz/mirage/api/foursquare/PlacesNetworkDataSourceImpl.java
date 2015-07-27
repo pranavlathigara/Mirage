@@ -15,8 +15,8 @@
  */
 package com.github.jorgecastilloprz.mirage.api.foursquare;
 
+import com.github.jorgecastilloprz.mirage.api.foursquare.mapper.FoursquarePlaceMapper;
 import com.github.jorgecastilloprz.mirage.api.foursquare.model.NearPlacesFoursquareResponse;
-import com.github.jorgecastilloprz.mirage.mapper.PlaceMapper;
 import com.jorgecastilloprz.mirage.datasources.PlacesNetworkDataSource;
 import com.jorgecastilloprz.mirage.datasources.exceptions.NetworkMapperException;
 import com.jorgecastilloprz.mirage.datasources.exceptions.ObtainPlacesNetworkException;
@@ -31,7 +31,7 @@ import retrofit.RetrofitError;
 public class PlacesNetworkDataSourceImpl implements PlacesNetworkDataSource {
 
   private FoursquareRetrofitService service;
-  private PlaceMapper placeMapper;
+  private FoursquarePlaceMapper placeMapper;
 
   private final int RESULT_COUNT = 50;
   private final int RADIUS = 100000;
@@ -39,7 +39,8 @@ public class PlacesNetworkDataSourceImpl implements PlacesNetworkDataSource {
   private final String CLIENT_ID = "E5MVMUAUJEAUAKVEUM3VVUL3EHCBWSVHK4KPJCOJSILAOML1";
   private final String CLIENT_SECRET = "3GFMAW2EDQP1WTHRUIJI3ESJINW4FB0P2N2FBWXS55HED3AG";
 
-  @Inject PlacesNetworkDataSourceImpl(FoursquareRetrofitService service, PlaceMapper placeMapper) {
+  @Inject PlacesNetworkDataSourceImpl(FoursquareRetrofitService service,
+      FoursquarePlaceMapper placeMapper) {
     this.service = service;
     this.placeMapper = placeMapper;
   }
@@ -58,7 +59,7 @@ public class PlacesNetworkDataSourceImpl implements PlacesNetworkDataSource {
     }
 
     try {
-      return placeMapper.map(response);
+      return placeMapper.map(response.getResponse().getGroups().get(0).getItems());
     } catch (Exception e) {
       throw new NetworkMapperException();
     }

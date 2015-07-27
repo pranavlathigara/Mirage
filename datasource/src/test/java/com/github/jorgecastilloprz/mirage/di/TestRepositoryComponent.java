@@ -9,7 +9,8 @@ import dagger.Component;
  * @author jorge
  * @since 24/07/15
  */
-@PerActivity @Component(modules = { RepositoryModule.class, TestApiModule.class })
+@PerActivity
+@Component(modules = { RepositoryModule.class, DataSourceModule.class, TestApiModule.class })
 public interface TestRepositoryComponent {
 
   void inject(PlacesRepositoryTest placesRepositoryTest);

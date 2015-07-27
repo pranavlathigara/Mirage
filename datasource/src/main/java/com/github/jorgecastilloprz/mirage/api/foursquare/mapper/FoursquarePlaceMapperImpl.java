@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.jorgecastilloprz.mirage.api.foursquare;
+package com.github.jorgecastilloprz.mirage.api.foursquare.mapper;
 
 import com.github.jorgecastilloprz.mirage.api.foursquare.model.FeaturedPhoto;
 import com.github.jorgecastilloprz.mirage.api.foursquare.model.FoursquareCategory;
@@ -23,7 +23,8 @@ import com.github.jorgecastilloprz.mirage.api.foursquare.model.NearPlacesFoursqu
 import com.github.jorgecastilloprz.mirage.api.foursquare.model.Tip;
 import com.github.jorgecastilloprz.mirage.api.foursquare.model.Venue;
 import com.github.jorgecastilloprz.mirage.api.foursquare.model.VenueItem;
-import com.github.jorgecastilloprz.mirage.mapper.PlaceMapper;
+import com.jorgecastilloprz.mirage.datasources.exceptions.MappingException;
+import com.jorgecastilloprz.mirage.datasources.exceptions.NetworkMapperException;
 import com.jorgecastilloprz.mirage.model.Category;
 import com.jorgecastilloprz.mirage.model.ContactInfo;
 import com.jorgecastilloprz.mirage.model.LocationInfo;
@@ -38,30 +39,24 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 
-/**
- * Maps from a foursquare formatted response to a list of places from the domain model
- * By doing this we can allow the user to not break the dependency rule.
- *
- * @author Jorge Castillo Pérez
- */
-public class FoursquarePlaceMapper implements PlaceMapper<NearPlacesFoursquareResponse> {
+public class FoursquarePlaceMapperImpl implements FoursquarePlaceMapper {
 
-  @Inject FoursquarePlaceMapper() {
+  @Inject FoursquarePlaceMapperImpl() {
   }
 
-  @Override public List<Place> map(NearPlacesFoursquareResponse source) {
+  @Override public List<Place> map(List<VenueItem> venueItems) throws NetworkMapperException {
     List<Place> places = new ArrayList<>();
-
-    for (VenueItem venueItem : source.getResponse().getGroups().get(0).getItems()) {
-      Venue venue = venueItem.getVenue();
-      Place currentPlace =
-          new Place(venue.getName(), venue.getUrl(), mapContactInfo(venue), mapLocation(venue),
-              mapCategories(venue), mapRating(venue), mapPhotos(venue), mapUserTips(venueItem));
-
-      places.add(currentPlace);
+    for (VenueItem venueItem : venueItems) {
+      places.add(map(venueItem));
     }
 
     return places;
+  }
+
+  @Override public Place map(VenueItem venueItem) throws NetworkMapperException {
+    Venue venue = venueItem.getVenue();
+    return new Place(venue.getName(), venue.getUrl(), mapContactInfo(venue), mapLocation(venue),
+        mapCategories(venue), mapRating(venue), mapPhotos(venue), mapUserTips(venueItem));
   }
 
   private ContactInfo mapContactInfo(Venue venue) {
@@ -107,8 +102,7 @@ public class FoursquarePlaceMapper implements PlaceMapper<NearPlacesFoursquareRe
             featuredPhoto.getWidth(), featuredPhoto.getHeight(),
             new UserData(featuredPhoto.getUser().getId(),
                 featuredPhoto.getUser().getFirstName() + " " + featuredPhoto.getUser()
-                    .getLastName(), featuredPhoto.getUser().getPhoto().getPrefix()
-                + "original"
+                    .getLastName(), featuredPhoto.getUser().getPhoto().getPrefix() + "original"
                 + featuredPhoto.getUser().getPhoto().getSuffix()));
 
         photos.add(photo);

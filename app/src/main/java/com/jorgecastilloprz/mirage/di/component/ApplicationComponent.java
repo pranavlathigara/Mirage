@@ -35,7 +35,7 @@ import javax.inject.Singleton;
 
   void inject(MirageApp application);
 
-  // Exported for child-components.
+  // Exposed for child-components.
   Application application();
 
   InteractorExecutor threadExecutor();
