@@ -19,11 +19,9 @@ import com.github.jorgecastilloprz.mirage.api.foursquare.model.FeaturedPhoto;
 import com.github.jorgecastilloprz.mirage.api.foursquare.model.FoursquareCategory;
 import com.github.jorgecastilloprz.mirage.api.foursquare.model.FoursquareVenuePhotoItem;
 import com.github.jorgecastilloprz.mirage.api.foursquare.model.Location;
-import com.github.jorgecastilloprz.mirage.api.foursquare.model.NearPlacesFoursquareResponse;
 import com.github.jorgecastilloprz.mirage.api.foursquare.model.Tip;
 import com.github.jorgecastilloprz.mirage.api.foursquare.model.Venue;
 import com.github.jorgecastilloprz.mirage.api.foursquare.model.VenueItem;
-import com.jorgecastilloprz.mirage.datasources.exceptions.MappingException;
 import com.jorgecastilloprz.mirage.datasources.exceptions.NetworkMapperException;
 import com.jorgecastilloprz.mirage.model.Category;
 import com.jorgecastilloprz.mirage.model.ContactInfo;
@@ -55,8 +53,9 @@ public class FoursquarePlaceMapperImpl implements FoursquarePlaceMapper {
 
   @Override public Place map(VenueItem venueItem) throws NetworkMapperException {
     Venue venue = venueItem.getVenue();
-    return new Place(venue.getName(), venue.getUrl(), mapContactInfo(venue), mapLocation(venue),
-        mapCategories(venue), mapRating(venue), mapPhotos(venue), mapUserTips(venueItem));
+    return new Place(venue.getId(), venue.getName(), venue.getUrl(), mapContactInfo(venue),
+        mapLocation(venue), mapCategories(venue), mapRating(venue), mapPhotos(venue),
+        mapUserTips(venueItem));
   }
 
   private ContactInfo mapContactInfo(Venue venue) {

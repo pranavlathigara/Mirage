@@ -22,6 +22,7 @@ import java.util.List;
  */
 public class Place {
 
+  private String id;
   private String name;
   private String infoUrl;
   private ContactInfo contactInfo;
@@ -31,8 +32,9 @@ public class Place {
   private List<Photo> photos;
   private List<UserTip> tips;
 
-  public Place(String name, String infoUrl, ContactInfo contactInfo, LocationInfo locationInfo,
+  public Place(String id, String name, String infoUrl, ContactInfo contactInfo, LocationInfo locationInfo,
       List<Category> categories, RatingInfo ratingInfo, List<Photo> photos, List<UserTip> tips) {
+    this.id = id;
     this.name = name;
     this.infoUrl = infoUrl;
     this.contactInfo = contactInfo;
@@ -41,6 +43,14 @@ public class Place {
     this.ratingInfo = ratingInfo;
     this.photos = photos;
     this.tips = tips;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
   }
 
   public String getName() {
