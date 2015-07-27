@@ -7,7 +7,7 @@ import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 
 @Generated("org.jsonschema2pojo")
-public class Group_ {
+public class PhotosGroup {
 
     @Expose
     private String type;

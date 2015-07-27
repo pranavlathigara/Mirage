@@ -12,7 +12,7 @@ public class Photos {
     @Expose
     private Integer count;
     @Expose
-    private List<Group_> groups = new ArrayList<Group_>();
+    private List<PhotosGroup> groups = new ArrayList<PhotosGroup>();
 
     /**
      * 
@@ -37,7 +37,7 @@ public class Photos {
      * @return
      *     The groups
      */
-    public List<Group_> getGroups() {
+    public List<PhotosGroup> getGroups() {
         return groups;
     }
 
@@ -46,7 +46,7 @@ public class Photos {
      * @param groups
      *     The groups
      */
-    public void setGroups(List<Group_> groups) {
+    public void setGroups(List<PhotosGroup> groups) {
         this.groups = groups;
     }
 

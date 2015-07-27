@@ -1,4 +1,3 @@
-
 package com.github.jorgecastilloprz.mirage.api.foursquare.model;
 
 import java.util.ArrayList;
@@ -6,168 +5,81 @@ import java.util.List;
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 
-@Generated("org.jsonschema2pojo")
-public class Response {
+@Generated("org.jsonschema2pojo") public class Response {
 
-    @Expose
-    private SuggestedFilters suggestedFilters;
-    @Expose
-    private String headerLocation;
-    @Expose
-    private String headerFullLocation;
-    @Expose
-    private String headerLocationGranularity;
-    @Expose
-    private String query;
-    @Expose
-    private Integer totalResults;
-    @Expose
-    private SuggestedBounds suggestedBounds;
-    @Expose
-    private List<Group> groups = new ArrayList<Group>();
+  @Expose private String headerLocation;
+  @Expose private String headerFullLocation;
+  @Expose private String headerLocationGranularity;
+  @Expose private Integer totalResults;
+  @Expose private List<VenueItemGroup> groups = new ArrayList<VenueItemGroup>();
 
-    /**
-     * 
-     * @return
-     *     The suggestedFilters
-     */
-    public SuggestedFilters getSuggestedFilters() {
-        return suggestedFilters;
-    }
+  /**
+   * @return The headerLocation
+   */
+  public String getHeaderLocation() {
+    return headerLocation;
+  }
 
-    /**
-     * 
-     * @param suggestedFilters
-     *     The suggestedFilters
-     */
-    public void setSuggestedFilters(SuggestedFilters suggestedFilters) {
-        this.suggestedFilters = suggestedFilters;
-    }
+  /**
+   * @param headerLocation The headerLocation
+   */
+  public void setHeaderLocation(String headerLocation) {
+    this.headerLocation = headerLocation;
+  }
 
-    /**
-     * 
-     * @return
-     *     The headerLocation
-     */
-    public String getHeaderLocation() {
-        return headerLocation;
-    }
+  /**
+   * @return The headerFullLocation
+   */
+  public String getHeaderFullLocation() {
+    return headerFullLocation;
+  }
 
-    /**
-     * 
-     * @param headerLocation
-     *     The headerLocation
-     */
-    public void setHeaderLocation(String headerLocation) {
-        this.headerLocation = headerLocation;
-    }
+  /**
+   * @param headerFullLocation The headerFullLocation
+   */
+  public void setHeaderFullLocation(String headerFullLocation) {
+    this.headerFullLocation = headerFullLocation;
+  }
 
-    /**
-     * 
-     * @return
-     *     The headerFullLocation
-     */
-    public String getHeaderFullLocation() {
-        return headerFullLocation;
-    }
+  /**
+   * @return The headerLocationGranularity
+   */
+  public String getHeaderLocationGranularity() {
+    return headerLocationGranularity;
+  }
 
-    /**
-     * 
-     * @param headerFullLocation
-     *     The headerFullLocation
-     */
-    public void setHeaderFullLocation(String headerFullLocation) {
-        this.headerFullLocation = headerFullLocation;
-    }
+  /**
+   * @param headerLocationGranularity The headerLocationGranularity
+   */
+  public void setHeaderLocationGranularity(String headerLocationGranularity) {
+    this.headerLocationGranularity = headerLocationGranularity;
+  }
 
-    /**
-     * 
-     * @return
-     *     The headerLocationGranularity
-     */
-    public String getHeaderLocationGranularity() {
-        return headerLocationGranularity;
-    }
+  /**
+   * @return The totalResults
+   */
+  public Integer getTotalResults() {
+    return totalResults;
+  }
 
-    /**
-     * 
-     * @param headerLocationGranularity
-     *     The headerLocationGranularity
-     */
-    public void setHeaderLocationGranularity(String headerLocationGranularity) {
-        this.headerLocationGranularity = headerLocationGranularity;
-    }
+  /**
+   * @param totalResults The totalResults
+   */
+  public void setTotalResults(Integer totalResults) {
+    this.totalResults = totalResults;
+  }
 
-    /**
-     * 
-     * @return
-     *     The query
-     */
-    public String getQuery() {
-        return query;
-    }
+  /**
+   * @return The venueGroups
+   */
+  public List<VenueItemGroup> getVenueGroups() {
+    return groups;
+  }
 
-    /**
-     * 
-     * @param query
-     *     The query
-     */
-    public void setQuery(String query) {
-        this.query = query;
-    }
-
-    /**
-     * 
-     * @return
-     *     The totalResults
-     */
-    public Integer getTotalResults() {
-        return totalResults;
-    }
-
-    /**
-     * 
-     * @param totalResults
-     *     The totalResults
-     */
-    public void setTotalResults(Integer totalResults) {
-        this.totalResults = totalResults;
-    }
-
-    /**
-     * 
-     * @return
-     *     The suggestedBounds
-     */
-    public SuggestedBounds getSuggestedBounds() {
-        return suggestedBounds;
-    }
-
-    /**
-     * 
-     * @param suggestedBounds
-     *     The suggestedBounds
-     */
-    public void setSuggestedBounds(SuggestedBounds suggestedBounds) {
-        this.suggestedBounds = suggestedBounds;
-    }
-
-    /**
-     * 
-     * @return
-     *     The groups
-     */
-    public List<Group> getGroups() {
-        return groups;
-    }
-
-    /**
-     * 
-     * @param groups
-     *     The groups
-     */
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
-    }
-
+  /**
+   * @param venueGroups The venueGroups
+   */
+  public void setVenueGroups(List<VenueItemGroup> venueGroups) {
+    this.groups = venueGroups;
+  }
 }

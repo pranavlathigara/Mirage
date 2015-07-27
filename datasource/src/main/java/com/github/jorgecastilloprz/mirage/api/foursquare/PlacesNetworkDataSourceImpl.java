@@ -59,7 +59,7 @@ public class PlacesNetworkDataSourceImpl implements PlacesNetworkDataSource {
     }
 
     try {
-      return placeMapper.map(response.getResponse().getGroups().get(0).getItems());
+      return placeMapper.map(response.getResponse().getVenueGroups().get(0).getItems());
     } catch (Exception e) {
       throw new NetworkMapperException();
     }
