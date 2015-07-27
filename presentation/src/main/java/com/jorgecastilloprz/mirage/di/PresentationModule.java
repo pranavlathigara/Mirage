@@ -13,19 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jorgecastilloprz.mirage.di.modules;
+package com.jorgecastilloprz.mirage.di;
 
-import com.jorgecastilloprz.mirage.interactor.GetPlacesAround;
-import com.jorgecastilloprz.mirage.interactor.GetPlacesAroundMockImpl;
+import com.jorgecastilloprz.mirage.MainPresenter;
+import com.jorgecastilloprz.mirage.MainPresenterImpl;
+import com.jorgecastilloprz.mirage.NearPlacesListPresenter;
+import com.jorgecastilloprz.mirage.NearPlacesListPresenterImpl;
+import com.jorgecastilloprz.mirage.di.annotations.PerActivity;
 import dagger.Module;
 import dagger.Provides;
 
 /**
  * @author Jorge Castillo Pérez
  */
-@Module public class InteractorModule {
+@Module public class PresentationModule {
 
-  @Provides GetPlacesAround provideGetPlacesAroundInteractor(GetPlacesAroundMockImpl interactor) {
-    return interactor;
+  @Provides @PerActivity MainPresenter provideMainPresenter(MainPresenterImpl presenter) {
+    return presenter;
+  }
+
+  @Provides @PerActivity NearPlacesListPresenter provideNearPlacesListPresenter(
+      NearPlacesListPresenterImpl presenter) {
+    return presenter;
   }
 }
