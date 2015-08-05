@@ -32,8 +32,9 @@ public class Place {
   private List<Photo> photos;
   private List<UserTip> tips;
 
-  public Place(String id, String name, String infoUrl, ContactInfo contactInfo, LocationInfo locationInfo,
-      List<Category> categories, RatingInfo ratingInfo, List<Photo> photos, List<UserTip> tips) {
+  public Place(String id, String name, String infoUrl, ContactInfo contactInfo,
+      LocationInfo locationInfo, List<Category> categories, RatingInfo ratingInfo,
+      List<Photo> photos, List<UserTip> tips) {
     this.id = id;
     this.name = name;
     this.infoUrl = infoUrl;
