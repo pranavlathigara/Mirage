@@ -81,7 +81,7 @@ public class NearPlacesListFragment extends SwipeToRefreshFragment
     adapter = new NearPlacesListAdapter(getActivity());
     placesList.setAdapter(adapter);
     placesList.addOnScrollListener(new EndlessRecyclerOnScrollListener(mLayoutManager) {
-      @Override public void onLoadMore(int current_page) {
+      @Override public void onLoadMore() {
         presenter.onLoadMoreScrollPositionReached();
       }
     });

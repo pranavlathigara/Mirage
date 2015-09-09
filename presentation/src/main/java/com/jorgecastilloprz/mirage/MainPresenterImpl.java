@@ -16,28 +16,20 @@
 package com.jorgecastilloprz.mirage;
 
 import com.jorgecastilloprz.mirage.bus.EventBus;
-import com.jorgecastilloprz.mirage.bus.events.OnLoadMoreNeeded;
-import com.jorgecastilloprz.mirage.bus.events.OnPlacesLoaded;
-import com.jorgecastilloprz.mirage.bus.events.OnRefreshStarted;
-import com.jorgecastilloprz.mirage.interactor.GetPlacesAround;
-import com.jorgecastilloprz.mirage.model.Place;
+import com.jorgecastilloprz.mirage.bus.events.OnError;
 import com.squareup.otto.Subscribe;
-import java.util.List;
 import javax.inject.Inject;
 
 /**
  * @author Jorge Castillo Pérez
  */
-public class MainPresenterImpl implements MainPresenter, GetPlacesAround.Callback {
+public class MainPresenterImpl implements MainPresenter {
 
   private View view;
 
-  private GetPlacesAround getPlacesAround;
   private EventBus bus;
-  private int lastLoadedPage;
 
-  @Inject MainPresenterImpl(GetPlacesAround getPlacesAround, EventBus bus) {
-    this.getPlacesAround = getPlacesAround;
+  @Inject MainPresenterImpl(EventBus bus) {
     this.bus = bus;
   }
 
@@ -67,19 +59,7 @@ public class MainPresenterImpl implements MainPresenter, GetPlacesAround.Callbac
     view.exitToSignInActivity();
   }
 
-  @Subscribe public void onRefreshStartedEvent(OnRefreshStarted event) {
-    getPlacesAround.execute(this, 37.992360, -1.121461, 0);
-  }
-
-  @Subscribe public void onLoadMoreNeeded(OnLoadMoreNeeded event) {
-    getPlacesAround.execute(this, 37.992360, -1.121461, lastLoadedPage++);
-  }
-
-  @Override public void onPlacesLoaded(List<Place> places) {
-    bus.post(new OnPlacesLoaded(places));
-  }
-
-  @Override public void onLoadingPlacesError() {
-    view.displayError("Loading places error. Check your connection.");
+  @Subscribe public void onErrorOcurred(OnError event) {
+    view.displayError(event.getErrorMessage());
   }
 }

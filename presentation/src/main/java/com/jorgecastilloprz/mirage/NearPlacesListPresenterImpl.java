@@ -16,22 +16,30 @@
 package com.jorgecastilloprz.mirage;
 
 import com.jorgecastilloprz.mirage.bus.EventBus;
-import com.jorgecastilloprz.mirage.bus.events.OnLoadMoreNeeded;
-import com.jorgecastilloprz.mirage.bus.events.OnPlacesLoaded;
+import com.jorgecastilloprz.mirage.bus.events.OnError;
+import com.jorgecastilloprz.mirage.bus.events.OnRefreshStarted;
+import com.jorgecastilloprz.mirage.interactor.GetPlacesAround;
+import com.jorgecastilloprz.mirage.model.Place;
 import com.squareup.otto.Subscribe;
+import java.util.List;
 import javax.inject.Inject;
 
 /**
  * @author Jorge Castillo Pérez
  */
-public class NearPlacesListPresenterImpl implements NearPlacesListPresenter {
+public class NearPlacesListPresenterImpl
+    implements NearPlacesListPresenter, GetPlacesAround.Callback {
 
   private View view;
   private EventBus bus;
   private boolean allPlacesAlreadyLoaded = false;
+  private GetPlacesAround getPlacesAround;
+  private int lastLoadedPage;
 
-  @Inject NearPlacesListPresenterImpl(EventBus bus) {
+  @Inject NearPlacesListPresenterImpl(EventBus bus, GetPlacesAround getPlacesAround) {
     this.bus = bus;
+    this.getPlacesAround = getPlacesAround;
+    this.lastLoadedPage = 0;
   }
 
   @Override public void setView(View view) {
@@ -55,15 +63,27 @@ public class NearPlacesListPresenterImpl implements NearPlacesListPresenter {
 
   @Override public void onLoadMoreScrollPositionReached() {
     if (!allPlacesAlreadyLoaded) {
-      bus.post(new OnLoadMoreNeeded());
+      loadNextPage();
     }
   }
 
-  @Subscribe public void onPlacesLoadedEvent(OnPlacesLoaded event) {
-    if (event.getPlaces().size() > 0) {
-      view.drawPlaces(event.getPlaces());
+  @Subscribe public void onRefreshStartedEvent(OnRefreshStarted event) {
+    loadNextPage();
+  }
+
+  private void loadNextPage() {
+    getPlacesAround.execute(this, 37.992360, -1.121461, lastLoadedPage++);
+  }
+
+  @Override public void onPlacesLoaded(List<Place> places) {
+    if (places.size() > 0) {
+      view.drawPlaces(places);
     } else {
       allPlacesAlreadyLoaded = true;
     }
+  }
+
+  @Override public void onLoadingPlacesError() {
+    bus.post(new OnError("Loading places error. Check your connection."));
   }
 }
