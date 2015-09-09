@@ -117,22 +117,17 @@ public class MainActivity extends SignInActivity implements MainPresenter.View {
   private void setupViewPager(ViewPager viewPager) {
     MainSectionPagerAdapter adapter = new MainSectionPagerAdapter(getSupportFragmentManager());
     adapter.addFragment(NearPlacesListFragment.newInstance(), "Place list");
-    adapter.addFragment(new MockFragment(), "");
-    adapter.addFragment(new MockFragment(), "Category 3");
+    adapter.addFragment(new MockFragment(), "Highlighted places");
     viewPager.setAdapter(adapter);
-    viewPager.setOffscreenPageLimit(2);
   }
 
   private void setupTabs() {
     tabLayout.setupWithViewPager(viewPager);
     tabLayout.getTabAt(0).setIcon(R.drawable.ic_view_day_white_24dp);
     tabLayout.getTabAt(0).setText("");
-    tabLayout.getTabAt(1).setIcon(R.drawable.ic_beenhere_white_24dp);
+    tabLayout.getTabAt(1).setIcon(R.drawable.ic_pages_white_24dp);
     tabLayout.getTabAt(1).setText("");
     tabLayout.getTabAt(1).getIcon().mutate().setAlpha(125);
-    tabLayout.getTabAt(2).setIcon(R.drawable.ic_pages_white_24dp);
-    tabLayout.getTabAt(2).setText("");
-    tabLayout.getTabAt(2).getIcon().mutate().setAlpha(125);
 
     tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
       @Override public void onTabSelected(TabLayout.Tab tab) {
