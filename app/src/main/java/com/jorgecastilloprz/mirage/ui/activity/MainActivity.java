@@ -37,7 +37,7 @@ import com.jorgecastilloprz.mirage.di.component.MainActivityComponent;
 import com.jorgecastilloprz.mirage.di.modules.ActivityModule;
 import com.jorgecastilloprz.mirage.log.Logger;
 import com.jorgecastilloprz.mirage.ui.base.SignInActivity;
-import com.jorgecastilloprz.mirage.ui.fragment.MockFragment;
+import com.jorgecastilloprz.mirage.ui.fragment.HighlightPlacesListFragment;
 import com.jorgecastilloprz.mirage.ui.fragment.NearPlacesListFragment;
 import com.jorgecastilloprz.mirage.ui.fragment.adapter.MainSectionPagerAdapter;
 import javax.inject.Inject;
@@ -117,7 +117,7 @@ public class MainActivity extends SignInActivity implements MainPresenter.View {
   private void setupViewPager(ViewPager viewPager) {
     MainSectionPagerAdapter adapter = new MainSectionPagerAdapter(getSupportFragmentManager());
     adapter.addFragment(NearPlacesListFragment.newInstance(), "Place list");
-    adapter.addFragment(new MockFragment(), "Highlighted places");
+    adapter.addFragment(HighlightPlacesListFragment.newInstance(), "Highlighted places");
     viewPager.setAdapter(adapter);
   }
 

@@ -15,6 +15,8 @@
  */
 package com.jorgecastilloprz.mirage.di;
 
+import com.jorgecastilloprz.mirage.interactor.GetHighlightedPlacesForCountry;
+import com.jorgecastilloprz.mirage.interactor.GetHighlightedPlacesForCountryImpl;
 import com.jorgecastilloprz.mirage.interactor.GetPlacesAround;
 import com.jorgecastilloprz.mirage.interactor.GetPlacesAroundMockImpl;
 import dagger.Module;
@@ -26,6 +28,11 @@ import dagger.Provides;
 @Module public class InteractorModule {
 
   @Provides GetPlacesAround provideGetPlacesAroundInteractor(GetPlacesAroundMockImpl interactor) {
+    return interactor;
+  }
+
+  @Provides GetHighlightedPlacesForCountry provideGetHighlightedPlacesInteractor(
+      GetHighlightedPlacesForCountryImpl interactor) {
     return interactor;
   }
 }

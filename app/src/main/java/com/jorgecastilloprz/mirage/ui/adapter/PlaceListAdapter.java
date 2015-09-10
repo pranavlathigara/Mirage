@@ -36,12 +36,12 @@ import java.util.List;
 /**
  * @author Jorge Castillo Pérez
  */
-public class NearPlacesListAdapter extends RecyclerView.Adapter<NearPlacesListAdapter.ViewHolder> {
+public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.ViewHolder> {
 
   private List<Place> places;
   private Context context;
 
-  public NearPlacesListAdapter(Context context) {
+  public PlaceListAdapter(Context context) {
     this.context = context;
     places = new ArrayList<>();
   }
@@ -54,8 +54,7 @@ public class NearPlacesListAdapter extends RecyclerView.Adapter<NearPlacesListAd
     }
   }
 
-  @Override
-  public NearPlacesListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  @Override public PlaceListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View v =
         LayoutInflater.from(parent.getContext()).inflate(R.layout.item_place_list, parent, false);
     return new ViewHolder(v);
@@ -68,7 +67,9 @@ public class NearPlacesListAdapter extends RecyclerView.Adapter<NearPlacesListAd
     holder.subtitle.setText(place.getLocationInfo().getCity());
     setTip(holder.userComment, place);
 
-    holder.distance.setText(place.getLocationInfo().getFormattedDistance());
+    holder.distance.setText(
+        place.getLocationInfo().getDistance() > 0 ? place.getLocationInfo().getFormattedDistance()
+            : "");
     setupRating(holder.ratingBgCircle, holder.ratingText, place);
   }
 

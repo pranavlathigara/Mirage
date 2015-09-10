@@ -17,12 +17,13 @@ package com.jorgecastilloprz.mirage.di.component;
 
 import com.github.jorgecastilloprz.mirage.di.ApiModule;
 import com.github.jorgecastilloprz.mirage.di.DataSourceModule;
+import com.jorgecastilloprz.mirage.di.InteractorModule;
+import com.jorgecastilloprz.mirage.di.PresentationModule;
 import com.jorgecastilloprz.mirage.di.RepositoryModule;
 import com.jorgecastilloprz.mirage.di.annotations.PerActivity;
 import com.jorgecastilloprz.mirage.di.modules.ActivityModule;
-import com.jorgecastilloprz.mirage.di.InteractorModule;
-import com.jorgecastilloprz.mirage.di.PresentationModule;
 import com.jorgecastilloprz.mirage.ui.activity.MainActivity;
+import com.jorgecastilloprz.mirage.ui.fragment.HighlightPlacesListFragment;
 import com.jorgecastilloprz.mirage.ui.fragment.MockFragment;
 import com.jorgecastilloprz.mirage.ui.fragment.NearPlacesListFragment;
 import dagger.Component;
@@ -38,6 +39,8 @@ import dagger.Component;
   void inject(MainActivity mainActivity);
 
   void inject(NearPlacesListFragment nearPlacesListFragment);
+
+  void inject(HighlightPlacesListFragment highlightPlacesListFragment);
 
   void inject(MockFragment mockFragment);
 }

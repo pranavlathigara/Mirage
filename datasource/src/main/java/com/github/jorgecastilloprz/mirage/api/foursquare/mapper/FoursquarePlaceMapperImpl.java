@@ -66,8 +66,9 @@ public class FoursquarePlaceMapperImpl implements FoursquarePlaceMapper {
   private LocationInfo mapLocation(Venue venue) {
     Location location = venue.getLocation();
     return new LocationInfo(location.getCrossStreet(), location.getLat(), location.getLng(),
-        formatDistance(location.getDistance()), location.getPostalCode(), location.getCc(),
-        location.getCity(), location.getState(), location.getCountry(), location.getAddress());
+        formatDistance(location.getDistance() != null ? location.getDistance() : 0),
+        location.getPostalCode(), location.getCc(), location.getCity(), location.getState(),
+        location.getCountry(), location.getAddress());
   }
 
   private double formatDistance(Integer distance) {

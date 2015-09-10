@@ -17,7 +17,7 @@ package com.jorgecastilloprz.mirage;
 
 import com.jorgecastilloprz.mirage.bus.EventBus;
 import com.jorgecastilloprz.mirage.bus.events.OnError;
-import com.jorgecastilloprz.mirage.interactor.GetPlacesAround;
+import com.jorgecastilloprz.mirage.interactor.GetHighlightedPlacesForCountry;
 import com.jorgecastilloprz.mirage.model.Place;
 import java.util.List;
 import javax.inject.Inject;
@@ -25,18 +25,19 @@ import javax.inject.Inject;
 /**
  * @author Jorge Castillo Pérez
  */
-public class NearPlacesListPresenterImpl
-    implements NearPlacesListPresenter, GetPlacesAround.Callback {
+public class HighlightPlacesPresenterImpl
+    implements HighlightPlacesListPresenter, GetHighlightedPlacesForCountry.Callback {
 
   private View view;
   private EventBus bus;
   private boolean allPlacesAlreadyLoaded = false;
-  private GetPlacesAround getPlacesAround;
+  private GetHighlightedPlacesForCountry getHighlightedPlacesForCountry;
   private int lastLoadedPage;
 
-  @Inject NearPlacesListPresenterImpl(EventBus bus, GetPlacesAround getPlacesAround) {
+  @Inject HighlightPlacesPresenterImpl(EventBus bus,
+      GetHighlightedPlacesForCountry getHighlightedPlacesForCountry) {
     this.bus = bus;
-    this.getPlacesAround = getPlacesAround;
+    this.getHighlightedPlacesForCountry = getHighlightedPlacesForCountry;
     this.lastLoadedPage = 0;
   }
 
@@ -70,7 +71,7 @@ public class NearPlacesListPresenterImpl
   }
 
   private void loadNextPage() {
-    getPlacesAround.execute(this, 37.992360, -1.121461, lastLoadedPage++);
+    getHighlightedPlacesForCountry.execute(this, "spain", lastLoadedPage++);
   }
 
   @Override public void onPlacesLoaded(List<Place> places) {

@@ -23,7 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import butterknife.InjectView;
-import com.jorgecastilloprz.mirage.NearPlacesListPresenter;
+import com.jorgecastilloprz.mirage.HighlightPlacesListPresenter;
 import com.jorgecastilloprz.mirage.R;
 import com.jorgecastilloprz.mirage.model.Place;
 import com.jorgecastilloprz.mirage.ui.activity.MainActivity;
@@ -36,17 +36,17 @@ import javax.inject.Inject;
 /**
  * @author Jorge Castillo Pérez
  */
-public class NearPlacesListFragment extends SwipeToRefreshFragment
-    implements NearPlacesListPresenter.View {
+public class HighlightPlacesListFragment extends SwipeToRefreshFragment
+    implements HighlightPlacesListPresenter.View {
 
   private View rootView;
   private PlaceListAdapter adapter;
 
-  @Inject NearPlacesListPresenter presenter;
+  @Inject HighlightPlacesListPresenter presenter;
   @InjectView(R.id.placesList) RecyclerView placesList;
 
-  public static NearPlacesListFragment newInstance() {
-    return new NearPlacesListFragment();
+  public static HighlightPlacesListFragment newInstance() {
+    return new HighlightPlacesListFragment();
   }
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {

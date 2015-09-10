@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * @author Jorge Castillo Pérez
  */
-public interface NearPlacesListPresenter {
+public interface HighlightPlacesListPresenter {
 
   void setView(View view);
 

@@ -21,7 +21,6 @@ import android.view.View;
 import butterknife.InjectView;
 import com.jorgecastilloprz.mirage.R;
 import com.jorgecastilloprz.mirage.bus.EventBus;
-import com.jorgecastilloprz.mirage.bus.events.OnRefreshStarted;
 import javax.inject.Inject;
 
 /**
@@ -46,9 +45,7 @@ public abstract class SwipeToRefreshFragment extends BaseFragment
     });
   }
 
-  @Override public void onRefresh() {
-    bus.post(new OnRefreshStarted());
-  }
+  @Override public abstract void onRefresh();
 
   protected void stopRefreshAnimation() {
     swipeLayout.setRefreshing(false);

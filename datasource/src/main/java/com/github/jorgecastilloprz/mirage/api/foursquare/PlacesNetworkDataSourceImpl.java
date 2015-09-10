@@ -45,8 +45,9 @@ public class PlacesNetworkDataSourceImpl implements PlacesNetworkDataSource {
     this.placeMapper = placeMapper;
   }
 
-  @Override public List<Place> obtainPlacesAround(int pageToLoad, double lat, double lng, int limit,
-      int radius) throws ObtainPlacesNetworkException, NetworkMapperException {
+  @Override
+  public List<Place> obtainPlacesAround(int pageToLoad, double lat, double lng, int radius)
+      throws ObtainPlacesNetworkException, NetworkMapperException {
 
     NearPlacesFoursquareResponse response;
     try {
@@ -54,6 +55,23 @@ public class PlacesNetworkDataSourceImpl implements PlacesNetworkDataSource {
           service.obtainPlacesAround(lat + "," + lng, CategoryUtils.getCategories(), RESULT_COUNT,
               RADIUS, 1, API_COMPAT_DATE, CLIENT_ID, CLIENT_SECRET, "any", "any",
               pageToLoad * RESULT_COUNT);
+    } catch (RetrofitError error) {
+      throw new ObtainPlacesNetworkException();
+    }
+
+    try {
+      return placeMapper.map(response.getResponse().getVenueGroups().get(0).getItems());
+    } catch (Exception e) {
+      throw new NetworkMapperException();
+    }
+  }
+
+  @Override public List<Place> obtainHighlightPlacesForCountry(int pageToLoad, String country)
+      throws ObtainPlacesNetworkException, NetworkMapperException {
+    NearPlacesFoursquareResponse response;
+    try {
+      response = service.obtainHighlightPlacesForCountry(country, RESULT_COUNT, 1, API_COMPAT_DATE,
+          CLIENT_ID, CLIENT_SECRET, "any", "any", pageToLoad * RESULT_COUNT);
     } catch (RetrofitError error) {
       throw new ObtainPlacesNetworkException();
     }

@@ -26,34 +26,32 @@ import javax.inject.Inject;
 /**
  * @author Jorge Castillo Pérez
  */
-public class GetPlacesAroundMockImpl implements GetPlacesAround {
+public class GetHighlightedPlacesForCountryImpl implements GetHighlightedPlacesForCountry {
 
   private InteractorExecutor executor;
   private MainThread mainThread;
   private PlacesRepository repository;
-  private double lat;
-  private double lng;
+  private String country;
   private int pageToLoad;
   private Callback callback;
 
-  @Inject GetPlacesAroundMockImpl(InteractorExecutor executor, MainThread mainThread,
+  @Inject GetHighlightedPlacesForCountryImpl(InteractorExecutor executor, MainThread mainThread,
       PlacesRepository repository) {
     this.executor = executor;
     this.mainThread = mainThread;
     this.repository = repository;
   }
 
-  @Override public void execute(Callback callback, double lat, double lng, int pageToLoad) {
+  @Override public void execute(Callback callback, String country, int pageToLoad) {
     this.callback = callback;
-    this.lat = lat;
-    this.lng = lng;
+    this.country = country;
     this.pageToLoad = pageToLoad;
     this.executor.run(this);
   }
 
   @Override public void run() {
     try {
-      List<Place> placesAround = repository.obtainPlacesAround(pageToLoad, lat, lng, 100000);
+      List<Place> placesAround = repository.obtainHighlightedPlacesForCountry(pageToLoad, country);
       notifyGamesLoaded(placesAround);
     } catch (ObtainPlacesException e) {
       notifyLoadingGamesError();

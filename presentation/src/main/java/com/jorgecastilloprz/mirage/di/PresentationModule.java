@@ -15,6 +15,8 @@
  */
 package com.jorgecastilloprz.mirage.di;
 
+import com.jorgecastilloprz.mirage.HighlightPlacesListPresenter;
+import com.jorgecastilloprz.mirage.HighlightPlacesPresenterImpl;
 import com.jorgecastilloprz.mirage.MainPresenter;
 import com.jorgecastilloprz.mirage.MainPresenterImpl;
 import com.jorgecastilloprz.mirage.NearPlacesListPresenter;
@@ -34,6 +36,11 @@ import dagger.Provides;
 
   @Provides @PerActivity NearPlacesListPresenter provideNearPlacesListPresenter(
       NearPlacesListPresenterImpl presenter) {
+    return presenter;
+  }
+
+  @Provides @PerActivity HighlightPlacesListPresenter provideHighlightPlacesPresenter(
+      HighlightPlacesPresenterImpl presenter) {
     return presenter;
   }
 }

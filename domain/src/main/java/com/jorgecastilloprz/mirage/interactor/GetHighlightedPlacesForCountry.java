@@ -13,30 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jorgecastilloprz.mirage;
+package com.jorgecastilloprz.mirage.interactor;
 
+import com.jorgecastilloprz.mirage.executor.Interactor;
 import com.jorgecastilloprz.mirage.model.Place;
 import java.util.List;
 
 /**
  * @author Jorge Castillo Pérez
  */
-public interface NearPlacesListPresenter {
+public interface GetHighlightedPlacesForCountry extends Interactor {
 
-  void setView(View view);
+  void execute(Callback callback, String country, int pageToLoad);
 
-  void initialize();
+  interface Callback {
 
-  void resume();
+    void onPlacesLoaded(List<Place> places);
 
-  void pause();
-
-  void onRefreshStarted();
-
-  void onLoadMoreScrollPositionReached();
-
-  interface View {
-
-    void drawPlaces(List<Place> places);
+    void onLoadingPlacesError();
   }
 }
