@@ -26,14 +26,10 @@ public interface FoursquareRetrofitService {
 
   @GET("/venues/explore") NearPlacesFoursquareResponse obtainPlacesAround(@Query("ll") String ll,
       @Query("categoryId") String categoryId, @Query("limit") int limit,
-      @Query("radius") int radius, @Query("venuePhotos") int venuePhotos,
-      @Query("v") String apiCompatibilityDate, @Query("client_id") String clientId,
-      @Query("client_secret") String clientSecret, @Query("day") String day,
+      @Query("radius") int radius, @Query("venuePhotos") int venuePhotos, @Query("day") String day,
       @Query("time") String time, @Query("offset") int offset);
 
   @GET("/venues/explore") NearPlacesFoursquareResponse obtainHighlightPlacesForCountry(
       @Query("near") String near, @Query("limit") int limit, @Query("venuePhotos") int venuePhotos,
-      @Query("v") String apiCompatibilityDate, @Query("client_id") String clientId,
-      @Query("client_secret") String clientSecret, @Query("day") String day,
-      @Query("time") String time, @Query("offset") int offset);
+      @Query("day") String day, @Query("time") String time, @Query("offset") int offset);
 }

@@ -35,9 +35,6 @@ public class PlacesNetworkDataSourceImpl implements PlacesNetworkDataSource {
 
   private final int RESULT_COUNT = 50;
   private final int RADIUS = 100000;
-  private final String API_COMPAT_DATE = "20150627";
-  private final String CLIENT_ID = "E5MVMUAUJEAUAKVEUM3VVUL3EHCBWSVHK4KPJCOJSILAOML1";
-  private final String CLIENT_SECRET = "3GFMAW2EDQP1WTHRUIJI3ESJINW4FB0P2N2FBWXS55HED3AG";
 
   @Inject PlacesNetworkDataSourceImpl(FoursquareRetrofitService service,
       FoursquarePlaceMapper placeMapper) {
@@ -53,8 +50,7 @@ public class PlacesNetworkDataSourceImpl implements PlacesNetworkDataSource {
     try {
       response =
           service.obtainPlacesAround(lat + "," + lng, CategoryUtils.getCategories(), RESULT_COUNT,
-              RADIUS, 1, API_COMPAT_DATE, CLIENT_ID, CLIENT_SECRET, "any", "any",
-              pageToLoad * RESULT_COUNT);
+              RADIUS, 1, "any", "any", pageToLoad * RESULT_COUNT);
     } catch (RetrofitError error) {
       throw new ObtainPlacesNetworkException();
     }
@@ -70,8 +66,8 @@ public class PlacesNetworkDataSourceImpl implements PlacesNetworkDataSource {
       throws ObtainPlacesNetworkException, NetworkMapperException {
     NearPlacesFoursquareResponse response;
     try {
-      response = service.obtainHighlightPlacesForCountry(country, RESULT_COUNT, 1, API_COMPAT_DATE,
-          CLIENT_ID, CLIENT_SECRET, "any", "any", pageToLoad * RESULT_COUNT);
+      response = service.obtainHighlightPlacesForCountry(country, RESULT_COUNT, 1, "any", "any",
+          pageToLoad * RESULT_COUNT);
     } catch (RetrofitError error) {
       throw new ObtainPlacesNetworkException();
     }

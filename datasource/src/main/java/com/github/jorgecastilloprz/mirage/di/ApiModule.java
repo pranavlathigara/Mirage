@@ -19,6 +19,7 @@ import com.github.jorgecastilloprz.mirage.api.foursquare.FoursquareRetrofitServi
 import com.jorgecastilloprz.mirage.di.annotations.PerActivity;
 import dagger.Module;
 import dagger.Provides;
+import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 
 /**
@@ -26,9 +27,24 @@ import retrofit.RestAdapter;
  */
 @Module public class ApiModule {
 
+  private final String API_COMPAT_DATE = "20150627";
+  private final String CLIENT_ID = "E5MVMUAUJEAUAKVEUM3VVUL3EHCBWSVHK4KPJCOJSILAOML1";
+  private final String CLIENT_SECRET = "3GFMAW2EDQP1WTHRUIJI3ESJINW4FB0P2N2FBWXS55HED3AG";
+
   @Provides @PerActivity FoursquareRetrofitService provideApiService() {
     return new RestAdapter.Builder().setEndpoint("https://api.foursquare.com/v2")
+        .setRequestInterceptor(buildRequestInterceptor())
         .build()
         .create(FoursquareRetrofitService.class);
+  }
+
+  private RequestInterceptor buildRequestInterceptor() {
+    return new RequestInterceptor() {
+      @Override public void intercept(RequestFacade request) {
+        request.addQueryParam("v", API_COMPAT_DATE);
+        request.addQueryParam("client_id", CLIENT_ID);
+        request.addQueryParam("client_secret", CLIENT_SECRET);
+      }
+    };
   }
 }
