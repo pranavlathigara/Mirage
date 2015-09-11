@@ -19,6 +19,7 @@ import android.app.Activity;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.jorgecastilloprz.mirage.di.annotations.PerActivity;
 import com.jorgecastilloprz.mirage.di.modules.ActivityModule;
+import com.jorgecastilloprz.mirage.navigation.ScreenNavigator;
 import dagger.Component;
 
 /**

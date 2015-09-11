@@ -30,6 +30,8 @@ public interface MainPresenter {
 
   void onSignOutButtonClick();
 
+  void onMapButtonClick();
+
   interface View {
 
     void signOutAccount();

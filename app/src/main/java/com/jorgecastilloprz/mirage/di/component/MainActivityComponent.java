@@ -18,6 +18,7 @@ package com.jorgecastilloprz.mirage.di.component;
 import com.github.jorgecastilloprz.mirage.di.ApiModule;
 import com.github.jorgecastilloprz.mirage.di.DataSourceModule;
 import com.jorgecastilloprz.mirage.di.InteractorModule;
+import com.jorgecastilloprz.mirage.di.modules.NavigationModule;
 import com.jorgecastilloprz.mirage.di.PresentationModule;
 import com.jorgecastilloprz.mirage.di.RepositoryModule;
 import com.jorgecastilloprz.mirage.di.annotations.PerActivity;
@@ -32,8 +33,8 @@ import dagger.Component;
  * @author Jorge Castillo Pérez
  */
 @PerActivity @Component(dependencies = ApplicationComponent.class, modules = {
-    ActivityModule.class, PresentationModule.class, InteractorModule.class, RepositoryModule.class,
-    DataSourceModule.class, ApiModule.class
+    ActivityModule.class, PresentationModule.class, NavigationModule.class, InteractorModule.class,
+    RepositoryModule.class, DataSourceModule.class, ApiModule.class
 }) public interface MainActivityComponent extends AbstractActivityComponent {
 
   void inject(MainActivity mainActivity);

@@ -36,6 +36,11 @@
         android:screenOrientation="portrait"
         />
 
+    <activity
+        android:name=".ui.activity.MapActivity"
+        android:theme="@style/FullScreen"
+        />
+
     <meta-data
         android:name="com.google.android.gms.version"
         android:value="@integer/google_play_services_version"

@@ -53,6 +53,7 @@ dependencies {
   compile libButterKnife
   compile libCaligraphy
   compile libGooglePlus
+  compile libMaps
   compile libLocation
   apt libDaggerCompiler
   compile libDagger

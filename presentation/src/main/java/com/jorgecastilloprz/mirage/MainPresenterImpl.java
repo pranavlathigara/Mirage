@@ -17,6 +17,7 @@ package com.jorgecastilloprz.mirage;
 
 import com.jorgecastilloprz.mirage.bus.EventBus;
 import com.jorgecastilloprz.mirage.bus.events.OnError;
+import com.jorgecastilloprz.mirage.navigation.ScreenNavigator;
 import com.squareup.otto.Subscribe;
 import javax.inject.Inject;
 
@@ -28,9 +29,11 @@ public class MainPresenterImpl implements MainPresenter {
   private View view;
 
   private EventBus bus;
+  private ScreenNavigator navigator;
 
-  @Inject MainPresenterImpl(EventBus bus) {
+  @Inject MainPresenterImpl(EventBus bus, ScreenNavigator navigator) {
     this.bus = bus;
+    this.navigator = navigator;
   }
 
   @Override public void setView(View view) {
@@ -57,6 +60,10 @@ public class MainPresenterImpl implements MainPresenter {
     view.signOutAccount();
     view.storeUserLogedOutInPreferences();
     view.exitToSignInActivity();
+  }
+
+  @Override public void onMapButtonClick() {
+    navigator.goToMapScreen();
   }
 
   @Subscribe public void onErrorOcurred(OnError event) {

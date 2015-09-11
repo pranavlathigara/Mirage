@@ -29,6 +29,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import com.jorgecastilloprz.mirage.MainPresenter;
 import com.jorgecastilloprz.mirage.MirageApp;
 import com.jorgecastilloprz.mirage.R;
@@ -200,5 +201,9 @@ public class MainActivity extends SignInActivity implements MainPresenter.View {
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  @OnClick(R.id.fab) public void onFabClick() {
+    presenter.onMapButtonClick();
   }
 }
