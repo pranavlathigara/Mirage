@@ -19,15 +19,16 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import butterknife.InjectView;
 import com.jorgecastilloprz.mirage.MirageApp;
 import com.jorgecastilloprz.mirage.R;
-import com.jorgecastilloprz.mirage.ui.components.SignInButtonBox;
-import com.jorgecastilloprz.mirage.ui.components.TextureVideoView;
 import com.jorgecastilloprz.mirage.di.component.DaggerMirageSignInActivityComponent;
 import com.jorgecastilloprz.mirage.di.component.MirageSignInActivityComponent;
 import com.jorgecastilloprz.mirage.di.modules.ActivityModule;
 import com.jorgecastilloprz.mirage.ui.base.SignInActivity;
+import com.jorgecastilloprz.mirage.ui.components.SignInButtonBox;
+import com.jorgecastilloprz.mirage.ui.components.TextureVideoView;
 
 public class MirageSignInActivity extends SignInActivity {
 
@@ -36,6 +37,7 @@ public class MirageSignInActivity extends SignInActivity {
   @InjectView(R.id.signButton) FrameLayout signInButton;
   @InjectView(R.id.logoText) View logo;
   @InjectView(R.id.signInButtonBox) SignInButtonBox buttonBox;
+  @InjectView(R.id.poweredByFoursquareImg) ImageView poweredByFoursquareImg;
 
   private MediaPlayer mMediaPlayer;
   private View mDecorView;
@@ -46,6 +48,7 @@ public class MirageSignInActivity extends SignInActivity {
   private final int SIGN_IN_FADE_DURATION = 1500;
   private final int LOGO_TRANSLATE_DELAY = 2000;
   private final int FADE_OUT_SIGN_BUTTON_DURATION = 400;
+  private final int POWERED_BY_FOURSQUARE_DURATION = 1000;
 
   private MirageSignInActivityComponent component;
 
@@ -155,6 +158,7 @@ public class MirageSignInActivity extends SignInActivity {
     signInButton.postDelayed(new Runnable() {
       @Override public void run() {
         playSignInAppearAnim();
+        playPoweredByFoursquareAnim();
       }
     }, SIGN_BUTTON_FADE_IN_DELAY);
   }
@@ -188,6 +192,13 @@ public class MirageSignInActivity extends SignInActivity {
       }
     });
     signInAnim.start();
+  }
+
+  private void playPoweredByFoursquareAnim() {
+    ValueAnimator fadeIn = ObjectAnimator.ofFloat(poweredByFoursquareImg, "alpha", 1);
+    fadeIn.setDuration(POWERED_BY_FOURSQUARE_DURATION)
+        .setInterpolator(new DecelerateInterpolator());
+    fadeIn.start();
   }
 
   private void postLogoTranslateAnim() {

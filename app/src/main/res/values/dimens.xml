@@ -24,4 +24,7 @@
   <dimen name="listItemRatingMargin">8dp</dimen>
   <dimen name="listItemRatingPadding">8dp</dimen>
   <dimen name="listItemRatingTextSize">14sp</dimen>
+
+  <dimen name="poweredByFoursquareWidth">250dp</dimen>
+  <dimen name="poweredByFoursquareHeight">60dp</dimen>
 </resources>

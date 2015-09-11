@@ -61,4 +61,14 @@
       android:alpha="0"
       />
 
+  <ImageView
+      android:id="@+id/poweredByFoursquareImg"
+      android:layout_width="@dimen/poweredByFoursquareWidth"
+      android:layout_height="@dimen/poweredByFoursquareHeight"
+      android:layout_gravity="bottom|center_horizontal"
+      android:src="@drawable/powered_by_foursquare"
+      android:layout_marginBottom="20dp"
+      android:alpha="0"
+      />
+
 </FrameLayout>
