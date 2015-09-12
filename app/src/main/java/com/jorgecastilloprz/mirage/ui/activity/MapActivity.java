@@ -80,5 +80,6 @@ public class MapActivity extends BaseActivity implements AppearAnimatorListener 
 
   @Override public void onDisappearAnimationComplete() {
     finish();
+    overridePendingTransition(0, 0);
   }
 }

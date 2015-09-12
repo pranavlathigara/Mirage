@@ -19,6 +19,8 @@ public class ScreenNavigatorImpl implements ScreenNavigator {
   }
 
   @Override public void goToMapScreen() {
-    activity.startActivity(new Intent(activity, MapActivity.class));
+    Intent mapIntent = new Intent(activity, MapActivity.class);
+    mapIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+    activity.startActivity(mapIntent);
   }
 }
