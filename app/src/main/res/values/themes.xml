@@ -10,9 +10,19 @@
   <style name="AppTheme"
       parent="AppTheme.Base"/>
 
-  <style name="FullScreen"
-      parent="@style/Theme.AppCompat.NoActionBar">
+  <style name="FullScreen.Base"
+      parent="AppTheme">
     <item name="android:windowNoTitle">true</item>
     <item name="windowActionBar">false</item>
   </style>
+
+  <style name="FullScreenTransparent"
+      parent="FullScreen.Base">
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:windowContentOverlay">@null</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:backgroundDimEnabled">false</item>
+  </style>
+
 </resources>

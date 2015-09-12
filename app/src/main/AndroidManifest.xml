@@ -20,7 +20,7 @@
     <activity
         android:name=".ui.activity.MirageSignInActivity"
         android:label="@string/app_name"
-        android:theme="@style/FullScreen"
+        android:theme="@style/FullScreen.Base"
         android:screenOrientation="portrait"
         >
       <intent-filter>
@@ -38,7 +38,7 @@
 
     <activity
         android:name=".ui.activity.MapActivity"
-        android:theme="@style/FullScreen"
+        android:theme="@style/FullScreenTransparent"
         />
 
     <meta-data
