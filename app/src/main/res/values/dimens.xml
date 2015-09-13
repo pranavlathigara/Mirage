@@ -12,6 +12,8 @@
   <dimen name="toolbar_text">22sp</dimen>
   <dimen name="itemPlaceListHeight">400dp</dimen>
   <dimen name="itemPlaceListImageBorderWidth">5dp</dimen>
+  <dimen name="big_material_margin">16dp</dimen>
+  <dimen name="material_margin">8dp</dimen>
 
   <dimen name="listItemTitle">24sp</dimen>
   <dimen name="listItemSubTitle">14sp</dimen>
@@ -28,4 +30,6 @@
 
   <dimen name="poweredByFoursquareWidth">250dp</dimen>
   <dimen name="poweredByFoursquareHeight">60dp</dimen>
+
+  <dimen name="advice_icon_size">80dp</dimen>
 </resources>

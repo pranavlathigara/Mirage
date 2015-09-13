@@ -25,8 +25,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.Optional;
 import com.jorgecastilloprz.mirage.R;
 import com.jorgecastilloprz.mirage.model.Place;
+import com.jorgecastilloprz.mirage.model.PolicyAdvice;
+import com.jorgecastilloprz.mirage.model.TutorialAdvice;
 import com.jorgecastilloprz.mirage.ui.components.picassotransform.ColorTransform;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
@@ -47,30 +50,70 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.View
   }
 
   public void setPlaces(List<Place> places) {
-    if (this.places.size() > 0 && this.places.get(0).getName().equals(places.get(0).getName())) {
+    if (this.places.size() > 0 && getFirstRealPlaceName(this.places).equals(
+        getFirstRealPlaceName(places))) {
+
       this.places = places;
     } else {
       this.places.addAll(places);
     }
   }
 
+  private String getFirstRealPlaceName(List<Place> places) {
+    for (int i = 0; i < places.size(); i++) {
+      String currentPlaceName = places.get(i).getName();
+      if (currentPlaceName != null && !currentPlaceName.equals("")) {
+        return currentPlaceName;
+      }
+    }
+
+    return "";
+  }
+
   @Override public PlaceListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View v =
-        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_place_list, parent, false);
+    View v;
+
+    switch (viewType) {
+      case ViewTypes.POLICY:
+      case ViewTypes.TUTORIAL:
+        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_advice, parent, false);
+        break;
+      default:
+        v = LayoutInflater.from(parent.getContext())
+            .inflate(R.layout.item_place_list, parent, false);
+    }
+
     return new ViewHolder(v);
   }
 
   @Override public void onBindViewHolder(ViewHolder holder, int position) {
     Place place = places.get(position);
-    loadPhoto(place, holder.image);
-    holder.title.setText(place.getName());
-    holder.subtitle.setText(place.getLocationInfo().getCity());
-    setTip(holder.userComment, place);
 
-    holder.distance.setText(
-        place.getLocationInfo().getDistance() > 0 ? place.getLocationInfo().getFormattedDistance()
-            : "");
-    setupRating(holder.ratingBgCircle, holder.ratingText, place);
+    switch (getItemViewType(position)) {
+      case ViewTypes.POLICY:
+        Picasso.with(holder.image.getContext())
+            .load(R.drawable.ic_verified_user_white_48dp)
+            .into(holder.image);
+        holder.title.setText(R.string.policies_title);
+        holder.text.setText(R.string.policies);
+        break;
+      case ViewTypes.TUTORIAL:
+        Picasso.with(holder.image.getContext())
+            .load(R.drawable.ic_verified_user_white_48dp)
+            .into(holder.image);
+        holder.title.setText(R.string.near_locations_tutorial_title);
+        holder.text.setText(R.string.near_locations_tutorial);
+        break;
+      default:
+        loadPhoto(place, holder.image);
+        holder.title.setText(place.getName());
+        holder.subtitle.setText(place.getLocationInfo().getCity());
+        setTip(holder.userComment, place);
+
+        holder.distance.setText(place.getLocationInfo().getDistance() > 0 ? place.getLocationInfo()
+            .getFormattedDistance() : "");
+        setupRating(holder.ratingBgCircle, holder.ratingText, place);
+    }
   }
 
   private void setTip(TextView userComment, Place place) {
@@ -114,19 +157,33 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.View
     return places.size();
   }
 
+  @Override public int getItemViewType(int position) {
+    return places.get(position) instanceof PolicyAdvice ? ViewTypes.POLICY
+        : places.get(position) instanceof TutorialAdvice ? ViewTypes.TUTORIAL : ViewTypes.DEFAULT;
+  }
+
   public static class ViewHolder extends RecyclerView.ViewHolder {
-    @InjectView(R.id.card) CardView card;
-    @InjectView(R.id.image) ImageView image;
-    @InjectView(R.id.title) TextView title;
-    @InjectView(R.id.subtitle) TextView subtitle;
-    @InjectView(R.id.userComment) TextView userComment;
-    @InjectView(R.id.distance) TextView distance;
-    @InjectView(R.id.ratingBgCircle) ImageView ratingBgCircle;
-    @InjectView(R.id.ratingText) TextView ratingText;
+    @InjectView(R.id.card) @Optional CardView card;
+    @InjectView(R.id.image) @Optional ImageView image;
+    @InjectView(R.id.title) @Optional TextView title;
+    @InjectView(R.id.subtitle) @Optional TextView subtitle;
+    @InjectView(R.id.userComment) @Optional TextView userComment;
+    @InjectView(R.id.distance) @Optional TextView distance;
+    @InjectView(R.id.ratingBgCircle) @Optional ImageView ratingBgCircle;
+    @InjectView(R.id.ratingText) @Optional TextView ratingText;
+    @InjectView(R.id.text) @Optional TextView text;
+    @InjectView(R.id.detailsButton) @Optional TextView detailsButton;
+    @InjectView(R.id.understoodButton) @Optional TextView understoodButton;
 
     public ViewHolder(View v) {
       super(v);
       ButterKnife.inject(this, v);
     }
+  }
+
+  class ViewTypes {
+    public static final int POLICY = 0;
+    public static final int TUTORIAL = 1;
+    public static final int DEFAULT = 2;
   }
 }

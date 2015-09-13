@@ -22,6 +22,8 @@ import com.jorgecastilloprz.mirage.domain.bus.MainThreadBus;
 import com.jorgecastilloprz.mirage.executor.InteractorExecutor;
 import com.jorgecastilloprz.mirage.executor.MainThread;
 import com.jorgecastilloprz.mirage.executor.ThreadExecutor;
+import com.jorgecastilloprz.mirage.helper.AdviceCardHelper;
+import com.jorgecastilloprz.mirage.helper.AdviceCardHelperImpl;
 import com.jorgecastilloprz.mirage.log.Logger;
 import com.jorgecastilloprz.mirage.log.LoggerImpl;
 import dagger.Module;
@@ -59,5 +61,9 @@ import javax.inject.Singleton;
 
   @Provides @Singleton EventBus provideEventBus(MainThreadBus bus) {
     return bus;
+  }
+
+  @Provides AdviceCardHelper provideAdviceCardHelper(AdviceCardHelperImpl helper) {
+    return helper;
   }
 }

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+  <android.support.v7.widget.CardView
+      android:id="@+id/card"
+      android:layout_gravity="center"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="5dp"
+      app:cardElevation="2dp"
+      app:cardCornerRadius="2dp"
+      app:cardBackgroundColor="@color/primary"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        >
+
+      <ImageView
+          android:id="@+id/image"
+          android:layout_width="@dimen/advice_icon_size"
+          android:layout_height="@dimen/advice_icon_size"
+          tools:src="@drawable/ic_verified_user_white_48dp"
+          android:layout_gravity="center_horizontal"
+          android:layout_margin="@dimen/big_material_margin"
+          />
+
+      <TextView
+          android:id="@+id/title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="@android:color/white"
+          android:textStyle="bold"
+          android:textSize="20sp"
+          tools:text="@string/policies_title"
+          android:layout_margin="@dimen/big_material_margin"
+          />
+
+      <TextView
+          android:id="@+id/text"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="@android:color/white"
+          android:textSize="14sp"
+          tools:text="@string/policies"
+          android:layout_marginLeft="@dimen/big_material_margin"
+          android:layout_marginRight="@dimen/big_material_margin"
+          android:layout_marginBottom="@dimen/material_margin"
+          />
+
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:layout_gravity="right"
+          android:layout_margin="4dp">
+
+        <TextView
+            android:id="@+id/detailsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:text="@string/details"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginRight="12dp"
+            />
+
+        <TextView
+            android:id="@+id/understoodButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:text="@string/understood"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:background="@drawable/advice_card_button_bg"
+            />
+
+      </LinearLayout>
+
+    </LinearLayout>
+
+  </android.support.v7.widget.CardView>
+
+</FrameLayout>

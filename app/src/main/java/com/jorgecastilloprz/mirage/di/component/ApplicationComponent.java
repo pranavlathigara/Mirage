@@ -21,6 +21,7 @@ import com.jorgecastilloprz.mirage.bus.EventBus;
 import com.jorgecastilloprz.mirage.di.modules.ApplicationModule;
 import com.jorgecastilloprz.mirage.executor.InteractorExecutor;
 import com.jorgecastilloprz.mirage.executor.MainThread;
+import com.jorgecastilloprz.mirage.helper.AdviceCardHelper;
 import com.jorgecastilloprz.mirage.log.Logger;
 import dagger.Component;
 import javax.inject.Singleton;
@@ -45,4 +46,6 @@ import javax.inject.Singleton;
   Logger logger();
 
   EventBus bus();
+
+  AdviceCardHelper adviceCardHelper();
 }

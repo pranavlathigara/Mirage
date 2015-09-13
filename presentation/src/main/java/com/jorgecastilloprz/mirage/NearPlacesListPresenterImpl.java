@@ -17,8 +17,11 @@ package com.jorgecastilloprz.mirage;
 
 import com.jorgecastilloprz.mirage.bus.EventBus;
 import com.jorgecastilloprz.mirage.bus.events.OnError;
+import com.jorgecastilloprz.mirage.helper.AdviceCardHelper;
 import com.jorgecastilloprz.mirage.interactor.GetPlacesAround;
 import com.jorgecastilloprz.mirage.model.Place;
+import com.jorgecastilloprz.mirage.model.PolicyAdvice;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -33,11 +36,17 @@ public class NearPlacesListPresenterImpl
   private boolean allPlacesAlreadyLoaded = false;
   private GetPlacesAround getPlacesAround;
   private int lastLoadedPage;
+  private List<Place> loadedPlacesUntilNow;
 
-  @Inject NearPlacesListPresenterImpl(EventBus bus, GetPlacesAround getPlacesAround) {
+  private AdviceCardHelper adviceCardHelper;
+
+  @Inject NearPlacesListPresenterImpl(EventBus bus, GetPlacesAround getPlacesAround,
+      AdviceCardHelper adviceCardHelper) {
     this.bus = bus;
     this.getPlacesAround = getPlacesAround;
     this.lastLoadedPage = 0;
+    this.adviceCardHelper = adviceCardHelper;
+    this.loadedPlacesUntilNow = new ArrayList<>();
   }
 
   @Override public void setView(View view) {
@@ -74,11 +83,21 @@ public class NearPlacesListPresenterImpl
   }
 
   @Override public void onPlacesLoaded(List<Place> places) {
+    if (hasToInsertPolicyAdvice()) {
+      PolicyAdvice policyAdvice = new PolicyAdvice();
+      places.add(0, policyAdvice);
+      this.loadedPlacesUntilNow.add(policyAdvice);
+    }
+
     if (places.size() > 0) {
       view.drawPlaces(places);
     } else {
       allPlacesAlreadyLoaded = true;
     }
+  }
+
+  private boolean hasToInsertPolicyAdvice() {
+    return loadedPlacesUntilNow.size() == 0 && adviceCardHelper.hasToDisplayPoliciesAdvice();
   }
 
   @Override public void onLoadingPlacesError() {

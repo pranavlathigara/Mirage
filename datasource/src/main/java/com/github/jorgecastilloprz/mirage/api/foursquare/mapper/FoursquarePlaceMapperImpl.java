@@ -44,6 +44,7 @@ public class FoursquarePlaceMapperImpl implements FoursquarePlaceMapper {
 
   @Override public List<Place> map(List<VenueItem> venueItems) throws NetworkMapperException {
     List<Place> places = new ArrayList<>();
+
     for (VenueItem venueItem : venueItems) {
       places.add(map(venueItem));
     }
