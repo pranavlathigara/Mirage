@@ -8,20 +8,6 @@
     social functionality or traffic analysis. We also share these identifiers and another relevant
     device data with our social, ad or analytic partners.
   </string>
-  <string name="near_locations_tutorial_title">
-    Near venues
-  </string>
-  <string name="near_locations_tutorial">
-    You will be able to find interesting near locations here. Use filters to match your interests.
-    Locations will be ordered using rating by default, but ordering criteria is totally configurable.
-  </string>
-  <string name="highlight_locations_tutorial_title">
-    Highlight locations
-  </string>
-  <string name="highlight_locations_tutorial">
-    Here you will find a global list of interesting locations for your country. Most rated locations
-    are displayed here.
-  </string>
 
   <string name="details">DETAILS</string>
   <string name="understood">UNDERSTOOD</string>

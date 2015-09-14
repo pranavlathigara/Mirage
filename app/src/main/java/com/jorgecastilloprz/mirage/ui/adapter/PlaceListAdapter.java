@@ -50,24 +50,7 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.View
   }
 
   public void setPlaces(List<Place> places) {
-    if (this.places.size() > 0 && getFirstRealPlaceName(this.places).equals(
-        getFirstRealPlaceName(places))) {
-
-      this.places = places;
-    } else {
-      this.places.addAll(places);
-    }
-  }
-
-  private String getFirstRealPlaceName(List<Place> places) {
-    for (int i = 0; i < places.size(); i++) {
-      String currentPlaceName = places.get(i).getName();
-      if (currentPlaceName != null && !currentPlaceName.equals("")) {
-        return currentPlaceName;
-      }
-    }
-
-    return "";
+    this.places = places;
   }
 
   @Override public PlaceListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -101,8 +84,9 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.View
         Picasso.with(holder.image.getContext())
             .load(R.drawable.ic_verified_user_white_48dp)
             .into(holder.image);
-        holder.title.setText(R.string.near_locations_tutorial_title);
-        holder.text.setText(R.string.near_locations_tutorial);
+        holder.title.setText(((TutorialAdvice) place).getTitle());
+        holder.text.setText(((TutorialAdvice) place).getMessage());
+        holder.detailsButton.setVisibility(View.GONE);
         break;
       default:
         loadPhoto(place, holder.image);
