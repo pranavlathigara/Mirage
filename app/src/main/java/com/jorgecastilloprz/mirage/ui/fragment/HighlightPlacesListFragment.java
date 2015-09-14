@@ -85,6 +85,9 @@ public class HighlightPlacesListFragment extends SwipeToRefreshFragment
         presenter.onLoadMoreScrollPositionReached();
       }
     });
+
+    adapter.attachAdviceCardListener(presenter);
+    adapter.attachOnPlaceClickListener(presenter);
   }
 
   @Override public void onResume() {

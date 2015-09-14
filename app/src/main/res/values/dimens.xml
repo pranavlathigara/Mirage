@@ -31,5 +31,5 @@
   <dimen name="poweredByFoursquareWidth">250dp</dimen>
   <dimen name="poweredByFoursquareHeight">60dp</dimen>
 
-  <dimen name="advice_icon_size">65dp</dimen>
+  <dimen name="advice_icon_size">75dp</dimen>
 </resources>

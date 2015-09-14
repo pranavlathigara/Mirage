@@ -15,13 +15,15 @@
  */
 package com.jorgecastilloprz.mirage;
 
+import com.jorgecastilloprz.mirage.listener.AdviceCardListener;
+import com.jorgecastilloprz.mirage.listener.OnPlaceClickListener;
 import com.jorgecastilloprz.mirage.model.Place;
 import java.util.List;
 
 /**
  * @author Jorge Castillo Pérez
  */
-public interface HighlightPlacesListPresenter {
+public interface HighlightPlacesListPresenter extends OnPlaceClickListener, AdviceCardListener {
 
   void setView(View view);
 

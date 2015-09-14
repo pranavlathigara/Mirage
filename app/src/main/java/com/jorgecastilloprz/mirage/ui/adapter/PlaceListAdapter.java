@@ -27,6 +27,8 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.Optional;
 import com.jorgecastilloprz.mirage.R;
+import com.jorgecastilloprz.mirage.listener.AdviceCardListener;
+import com.jorgecastilloprz.mirage.listener.OnPlaceClickListener;
 import com.jorgecastilloprz.mirage.model.Place;
 import com.jorgecastilloprz.mirage.model.PolicyAdvice;
 import com.jorgecastilloprz.mirage.model.TutorialAdvice;
@@ -39,10 +41,13 @@ import java.util.List;
 /**
  * @author Jorge Castillo Pérez
  */
-public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.ViewHolder> {
+public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.ViewHolder>
+    implements View.OnClickListener {
 
   private List<Place> places;
   private Context context;
+  private AdviceCardListener adviceListener;
+  private OnPlaceClickListener onPlaceClickListener;
 
   public PlaceListAdapter(Context context) {
     this.context = context;
@@ -53,9 +58,16 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.View
     this.places = places;
   }
 
+  public void attachAdviceCardListener(AdviceCardListener listener) {
+    this.adviceListener = listener;
+  }
+
+  public void attachOnPlaceClickListener(OnPlaceClickListener listener) {
+    this.onPlaceClickListener = listener;
+  }
+
   @Override public PlaceListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View v;
-
     switch (viewType) {
       case ViewTypes.POLICY:
       case ViewTypes.TUTORIAL:
@@ -64,6 +76,7 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.View
       default:
         v = LayoutInflater.from(parent.getContext())
             .inflate(R.layout.item_place_list, parent, false);
+        v.setOnClickListener(this);
     }
 
     return new ViewHolder(v);
@@ -79,6 +92,10 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.View
             .into(holder.image);
         holder.title.setText(R.string.policies_title);
         holder.text.setText(R.string.policies);
+
+        attachDetailsListener(holder.detailsButton);
+        attachUnderstoodListener(holder.understoodButton, position);
+
         break;
       case ViewTypes.TUTORIAL:
         TutorialAdvice advice = (TutorialAdvice) place;
@@ -89,6 +106,9 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.View
         holder.title.setText(advice.getTitle());
         holder.text.setText(advice.getMessage());
         holder.detailsButton.setVisibility(View.GONE);
+
+        attachUnderstoodListener(holder.understoodButton, position);
+
         break;
       default:
         loadPhoto(place, holder.image);
@@ -99,7 +119,29 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.View
         holder.distance.setText(place.getLocationInfo().getDistance() > 0 ? place.getLocationInfo()
             .getFormattedDistance() : "");
         setupRating(holder.ratingBgCircle, holder.ratingText, place);
+
+        holder.itemView.setTag(place);
     }
+  }
+
+  private void attachDetailsListener(View detailsButton) {
+    detailsButton.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        if (adviceListener != null) {
+          adviceListener.onPolicyDetailsButtonClick();
+        }
+      }
+    });
+  }
+
+  private void attachUnderstoodListener(View understoodButton, final int cardPosition) {
+    understoodButton.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        if (adviceListener != null) {
+          adviceListener.onUnderstoodButtonClick(cardPosition);
+        }
+      }
+    });
   }
 
   private void setTip(TextView userComment, Place place) {
@@ -146,6 +188,12 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.View
   @Override public int getItemViewType(int position) {
     return places.get(position) instanceof PolicyAdvice ? ViewTypes.POLICY
         : places.get(position) instanceof TutorialAdvice ? ViewTypes.TUTORIAL : ViewTypes.DEFAULT;
+  }
+
+  @Override public void onClick(final View v) {
+    if (onPlaceClickListener != null) {
+      onPlaceClickListener.onPlaceClick((Place) v.getTag());
+    }
   }
 
   public static class ViewHolder extends RecyclerView.ViewHolder {

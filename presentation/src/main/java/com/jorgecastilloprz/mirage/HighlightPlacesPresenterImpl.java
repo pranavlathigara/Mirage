@@ -21,6 +21,7 @@ import com.jorgecastilloprz.mirage.helper.AdviceCardHelper;
 import com.jorgecastilloprz.mirage.interactor.GetHighlightedPlacesForCountry;
 import com.jorgecastilloprz.mirage.model.Place;
 import com.jorgecastilloprz.mirage.model.TutorialAdvice;
+import com.jorgecastilloprz.mirage.navigation.ScreenNavigator;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -34,16 +35,18 @@ public class HighlightPlacesPresenterImpl
   private View view;
   private EventBus bus;
   private boolean noMorePlaces = false;
+  private ScreenNavigator navigator;
   private GetHighlightedPlacesForCountry getHighlightedPlacesForCountry;
   private int lastLoadedPage;
   private List<Place> loadedPlacesUntilNow;
 
   private AdviceCardHelper adviceCardHelper;
 
-  @Inject HighlightPlacesPresenterImpl(EventBus bus,
+  @Inject HighlightPlacesPresenterImpl(EventBus bus, ScreenNavigator navigator,
       GetHighlightedPlacesForCountry getHighlightedPlacesForCountry,
       AdviceCardHelper adviceCardHelper) {
     this.bus = bus;
+    this.navigator = navigator;
     this.getHighlightedPlacesForCountry = getHighlightedPlacesForCountry;
     this.lastLoadedPage = 0;
     this.adviceCardHelper = adviceCardHelper;
@@ -138,5 +141,17 @@ public class HighlightPlacesPresenterImpl
 
   @Override public void onLoadingPlacesError() {
     bus.post(new OnError("Loading places error. Check your connection."));
+  }
+
+  @Override public void onPolicyDetailsButtonClick() {
+    navigator.goToPolicyScreen();
+  }
+
+  @Override public void onUnderstoodButtonClick(int position) {
+
+  }
+
+  @Override public void onPlaceClick(Place place) {
+
   }
 }

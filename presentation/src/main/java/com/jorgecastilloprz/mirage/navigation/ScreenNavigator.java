@@ -7,4 +7,6 @@ package com.jorgecastilloprz.mirage.navigation;
 public interface ScreenNavigator {
 
   void goToMapScreen();
+
+  void goToPolicyScreen();
 }

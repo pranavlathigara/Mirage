@@ -22,6 +22,7 @@ import com.jorgecastilloprz.mirage.interactor.GetPlacesAround;
 import com.jorgecastilloprz.mirage.model.Place;
 import com.jorgecastilloprz.mirage.model.PolicyAdvice;
 import com.jorgecastilloprz.mirage.model.TutorialAdvice;
+import com.jorgecastilloprz.mirage.navigation.ScreenNavigator;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -35,15 +36,17 @@ public class NearPlacesListPresenterImpl
   private View view;
   private EventBus bus;
   private boolean noMorePlaces = false;
+  private ScreenNavigator navigator;
   private GetPlacesAround getPlacesAround;
   private int lastLoadedPage;
   private List<Place> loadedPlacesUntilNow;
 
   private AdviceCardHelper adviceCardHelper;
 
-  @Inject NearPlacesListPresenterImpl(EventBus bus, GetPlacesAround getPlacesAround,
-      AdviceCardHelper adviceCardHelper) {
+  @Inject NearPlacesListPresenterImpl(EventBus bus, ScreenNavigator navigator,
+      GetPlacesAround getPlacesAround, AdviceCardHelper adviceCardHelper) {
     this.bus = bus;
+    this.navigator = navigator;
     this.getPlacesAround = getPlacesAround;
     this.lastLoadedPage = 0;
     this.adviceCardHelper = adviceCardHelper;
@@ -144,5 +147,17 @@ public class NearPlacesListPresenterImpl
 
   @Override public void onLoadingPlacesError() {
     bus.post(new OnError("Loading places error. Check your connection."));
+  }
+
+  @Override public void onPolicyDetailsButtonClick() {
+    navigator.goToPolicyScreen();
+  }
+
+  @Override public void onUnderstoodButtonClick(int position) {
+
+  }
+
+  @Override public void onPlaceClick(Place place) {
+
   }
 }
