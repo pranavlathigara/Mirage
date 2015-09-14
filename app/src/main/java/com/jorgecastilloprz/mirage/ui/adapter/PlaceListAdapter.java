@@ -81,11 +81,13 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.View
         holder.text.setText(R.string.policies);
         break;
       case ViewTypes.TUTORIAL:
+        TutorialAdvice advice = (TutorialAdvice) place;
         Picasso.with(holder.image.getContext())
-            .load(R.drawable.ic_verified_user_white_48dp)
+            .load(advice.getType() == TutorialAdvice.Type.NEAR ? R.drawable.ic_place_white_48dp
+                : R.drawable.ic_pages_white_48dp)
             .into(holder.image);
-        holder.title.setText(((TutorialAdvice) place).getTitle());
-        holder.text.setText(((TutorialAdvice) place).getMessage());
+        holder.title.setText(advice.getTitle());
+        holder.text.setText(advice.getMessage());
         holder.detailsButton.setVisibility(View.GONE);
         break;
       default:

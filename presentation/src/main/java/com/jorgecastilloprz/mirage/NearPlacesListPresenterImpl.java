@@ -60,6 +60,7 @@ public class NearPlacesListPresenterImpl
 
     if (hasToInsertTutorialAdvice()) {
       TutorialAdvice tutorialAdvice = new TutorialAdvice();
+      tutorialAdvice.setType(TutorialAdvice.Type.NEAR);
       tutorialAdvice.setTitle("Locations around");
       tutorialAdvice.setMessage(
           "You will be able to find interesting near locations here. Use filters to match your "

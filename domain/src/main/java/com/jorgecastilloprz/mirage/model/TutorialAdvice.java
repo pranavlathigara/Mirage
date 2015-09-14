@@ -22,6 +22,11 @@ public class TutorialAdvice extends Place {
 
   private String title;
   private String message;
+  private Type type;
+
+  public enum Type {
+    NEAR, HIGHLIGHT
+  }
 
   public TutorialAdvice() {
     super("", "", "", null, null, null, null, null, null);
@@ -41,5 +46,13 @@ public class TutorialAdvice extends Place {
 
   public void setMessage(String message) {
     this.message = message;
+  }
+
+  public Type getType() {
+    return type;
+  }
+
+  public void setType(Type type) {
+    this.type = type;
   }
 }

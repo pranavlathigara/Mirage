@@ -55,6 +55,7 @@ public class HighlightPlacesPresenterImpl
   private void initAdvices() {
     if (hasToInsertTutorialAdvice()) {
       TutorialAdvice tutorialAdvice = new TutorialAdvice();
+      tutorialAdvice.setType(TutorialAdvice.Type.HIGHLIGHT);
       tutorialAdvice.setTitle("Highlight locations");
       tutorialAdvice.setMessage(
           "Here you will find a global list of interesting locations for your country. Most rated "
