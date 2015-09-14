@@ -23,62 +23,30 @@ import com.jorgecastilloprz.mirage.model.Place;
 import com.jorgecastilloprz.mirage.model.PolicyAdvice;
 import com.jorgecastilloprz.mirage.model.TutorialAdvice;
 import com.jorgecastilloprz.mirage.navigation.ScreenNavigator;
-import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 
 /**
  * @author Jorge Castillo Pérez
  */
-public class NearPlacesListPresenterImpl
+public class NearPlacesListPresenterImpl extends BasePresenter
     implements NearPlacesListPresenter, GetPlacesAround.Callback {
 
   private View view;
-  private EventBus bus;
-  private boolean noMorePlaces = false;
-  private ScreenNavigator navigator;
   private GetPlacesAround getPlacesAround;
-  private int lastLoadedPage;
-  private List<Place> loadedPlacesUntilNow;
-
-  private AdviceCardHelper adviceCardHelper;
 
   @Inject NearPlacesListPresenterImpl(EventBus bus, ScreenNavigator navigator,
       GetPlacesAround getPlacesAround, AdviceCardHelper adviceCardHelper) {
-    this.bus = bus;
-    this.navigator = navigator;
+
+    super(bus, navigator, adviceCardHelper);
     this.getPlacesAround = getPlacesAround;
-    this.lastLoadedPage = 0;
-    this.adviceCardHelper = adviceCardHelper;
-    this.loadedPlacesUntilNow = new ArrayList<>();
-
-    initAdvices();
   }
 
-  private void initAdvices() {
-    if (hasToInsertPolicyAdvice()) {
-      PolicyAdvice policyAdvice = new PolicyAdvice();
-      loadedPlacesUntilNow.add(policyAdvice);
-    }
-
-    if (hasToInsertTutorialAdvice()) {
-      TutorialAdvice tutorialAdvice = new TutorialAdvice();
-      tutorialAdvice.setType(TutorialAdvice.Type.NEAR);
-      tutorialAdvice.setTitle("Locations around");
-      tutorialAdvice.setMessage(
-          "You will be able to find interesting near locations here. Use filters to match your "
-              + "interests. Locations will be ordered using rating by default, but ordering "
-              + "criteria is totally configurable.");
-
-      loadedPlacesUntilNow.add(tutorialAdvice);
-    }
-  }
-
-  private boolean hasToInsertPolicyAdvice() {
+  @Override protected boolean hasToInsertPolicyAdvice() {
     return adviceCardHelper.hasToDisplayPoliciesAdvice();
   }
 
-  private boolean hasToInsertTutorialAdvice() {
+  @Override protected boolean hasToInsertTutorialAdvice() {
     return adviceCardHelper.hasToDisplayNearPlacesAdvice();
   }
 

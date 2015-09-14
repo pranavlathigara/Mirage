@@ -20,55 +20,32 @@ import com.jorgecastilloprz.mirage.bus.events.OnError;
 import com.jorgecastilloprz.mirage.helper.AdviceCardHelper;
 import com.jorgecastilloprz.mirage.interactor.GetHighlightedPlacesForCountry;
 import com.jorgecastilloprz.mirage.model.Place;
-import com.jorgecastilloprz.mirage.model.TutorialAdvice;
 import com.jorgecastilloprz.mirage.navigation.ScreenNavigator;
-import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 
 /**
  * @author Jorge Castillo Pérez
  */
-public class HighlightPlacesPresenterImpl
+public class HighlightPlacesPresenterImpl extends BasePresenter
     implements HighlightPlacesListPresenter, GetHighlightedPlacesForCountry.Callback {
 
   private View view;
-  private EventBus bus;
-  private boolean noMorePlaces = false;
-  private ScreenNavigator navigator;
   private GetHighlightedPlacesForCountry getHighlightedPlacesForCountry;
-  private int lastLoadedPage;
-  private List<Place> loadedPlacesUntilNow;
-
-  private AdviceCardHelper adviceCardHelper;
 
   @Inject HighlightPlacesPresenterImpl(EventBus bus, ScreenNavigator navigator,
       GetHighlightedPlacesForCountry getHighlightedPlacesForCountry,
       AdviceCardHelper adviceCardHelper) {
-    this.bus = bus;
-    this.navigator = navigator;
+
+    super(bus, navigator, adviceCardHelper);
     this.getHighlightedPlacesForCountry = getHighlightedPlacesForCountry;
-    this.lastLoadedPage = 0;
-    this.adviceCardHelper = adviceCardHelper;
-    this.loadedPlacesUntilNow = new ArrayList<>();
-
-    initAdvices();
   }
 
-  private void initAdvices() {
-    if (hasToInsertTutorialAdvice()) {
-      TutorialAdvice tutorialAdvice = new TutorialAdvice();
-      tutorialAdvice.setType(TutorialAdvice.Type.HIGHLIGHT);
-      tutorialAdvice.setTitle("Highlight locations");
-      tutorialAdvice.setMessage(
-          "Here you will find a global list of interesting locations for your country. Most rated "
-              + "locations are displayed here.");
-
-      loadedPlacesUntilNow.add(tutorialAdvice);
-    }
+  @Override protected boolean hasToInsertPolicyAdvice() {
+    return false;
   }
 
-  private boolean hasToInsertTutorialAdvice() {
+  @Override protected boolean hasToInsertTutorialAdvice() {
     return adviceCardHelper.hasToDisplayNearPlacesAdvice();
   }
 
@@ -117,10 +94,6 @@ public class HighlightPlacesPresenterImpl
     } else {
       noMorePlaces = true;
     }
-  }
-
-  private boolean hasToInsertPolicyAdvice() {
-    return loadedPlacesUntilNow.size() == 0 && adviceCardHelper.hasToDisplayPoliciesAdvice();
   }
 
   private boolean isUserRefreshing(List<Place> places) {
