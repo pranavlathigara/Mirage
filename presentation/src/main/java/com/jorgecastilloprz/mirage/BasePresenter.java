@@ -41,17 +41,11 @@ public abstract class BasePresenter {
     }
 
     if (hasToInsertTutorialAdvice()) {
-      TutorialAdvice tutorialAdvice = new TutorialAdvice();
-      tutorialAdvice.setType(TutorialAdvice.Type.NEAR);
-      tutorialAdvice.setTitle("Locations around");
-      tutorialAdvice.setMessage(
-          "You will be able to find interesting near locations here. Use filters to match your "
-              + "interests. Locations will be ordered using rating by default, but ordering "
-              + "criteria is totally configurable.");
-
-      loadedPlacesUntilNow.add(tutorialAdvice);
+      loadedPlacesUntilNow.add(buildTutorialAdvice());
     }
   }
+
+  protected abstract TutorialAdvice buildTutorialAdvice();
 
   protected abstract boolean hasToInsertPolicyAdvice();
 

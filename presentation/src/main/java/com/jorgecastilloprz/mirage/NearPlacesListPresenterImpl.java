@@ -42,6 +42,17 @@ public class NearPlacesListPresenterImpl extends BasePresenter
     this.getPlacesAround = getPlacesAround;
   }
 
+  @Override protected TutorialAdvice buildTutorialAdvice() {
+    TutorialAdvice tutorialAdvice = new TutorialAdvice();
+    tutorialAdvice.setType(TutorialAdvice.Type.NEAR);
+    tutorialAdvice.setTitle("Locations around");
+    tutorialAdvice.setMessage(
+        "You will be able to find near locations here. Use filters to match your "
+            + "interests. Locations will be ordered using rating by default, but ordering "
+            + "criteria is totally configurable.");
+    return tutorialAdvice;
+  }
+
   @Override protected boolean hasToInsertPolicyAdvice() {
     return adviceCardHelper.hasToDisplayPoliciesAdvice();
   }

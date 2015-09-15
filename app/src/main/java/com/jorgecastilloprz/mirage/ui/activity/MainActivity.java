@@ -192,6 +192,9 @@ public class MainActivity extends SignInActivity implements MainPresenter.View {
         mDrawerLayout.openDrawer(GravityCompat.START);
         return true;
 
+      case R.id.action_search:
+        return true;
+
       case R.id.action_settings:
         return true;
 

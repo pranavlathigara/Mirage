@@ -20,6 +20,7 @@ import com.jorgecastilloprz.mirage.bus.events.OnError;
 import com.jorgecastilloprz.mirage.helper.AdviceCardHelper;
 import com.jorgecastilloprz.mirage.interactor.GetHighlightedPlacesForCountry;
 import com.jorgecastilloprz.mirage.model.Place;
+import com.jorgecastilloprz.mirage.model.TutorialAdvice;
 import com.jorgecastilloprz.mirage.navigation.ScreenNavigator;
 import java.util.List;
 import javax.inject.Inject;
@@ -39,6 +40,16 @@ public class HighlightPlacesPresenterImpl extends BasePresenter
 
     super(bus, navigator, adviceCardHelper);
     this.getHighlightedPlacesForCountry = getHighlightedPlacesForCountry;
+  }
+
+  @Override protected TutorialAdvice buildTutorialAdvice() {
+    TutorialAdvice tutorialAdvice = new TutorialAdvice();
+    tutorialAdvice.setType(TutorialAdvice.Type.HIGHLIGHT);
+    tutorialAdvice.setTitle("Highlight locations");
+    tutorialAdvice.setMessage(
+        "Here you have plenty of interesting places of your country that you never visited. Take a "
+            + "look around and find highlighted locations to plan your next vacations!");
+    return tutorialAdvice;
   }
 
   @Override protected boolean hasToInsertPolicyAdvice() {
